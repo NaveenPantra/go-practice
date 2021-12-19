@@ -1,3 +1,3 @@
-module 002_quiz
+module 001_quiz
 
 go 1.17
