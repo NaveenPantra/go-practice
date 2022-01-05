@@ -1,10 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
+	"net/url"
 )
 
 var tpl *template.Template
@@ -16,8 +16,16 @@ func (s server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		log.Println("Error: ", err)
 		return
 	}
-	fmt.Println(r.Form)
-	if err := tpl.ExecuteTemplate(w, "000_form.gohtml", r.Form); err != nil {
+	data := struct {
+		Method  string
+		QParams url.Values
+		Url     *url.URL
+	}{
+		r.Method,
+		r.Form,
+		r.URL,
+	}
+	if err := tpl.ExecuteTemplate(w, "000_form.gohtml", data); err != nil {
 		log.Println("Error", err)
 		return
 	}

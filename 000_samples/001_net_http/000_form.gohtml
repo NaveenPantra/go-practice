@@ -5,9 +5,24 @@
     <title>Form</title>
 </head>
 <body>
-<main>This is the form data</main>
+{{if .Method}}<h1>The Request method is: {{.Method}}</h1>{{end}}
+{{if .Url}}
+<p>About URL</p>
 <ul>
-    {{range $key, $value := .}}
+    <li>Scheme - {{.Url.Scheme}}</li>
+    <li>Opaque - {{.Url.Opaque}}</li>
+    <li>Host - {{.Url.Host}}</li>
+    <li>Path - {{.Url.Path}}</li>
+    <li>RawPath - {{.Url.RawPath}}</li>
+    <li>ForceQuery - {{.Url.ForceQuery}}</li>
+    <li>RawQuery - {{.Url.RawQuery}}</li>
+    <li>Fragment - {{.Url.Fragment}}</li>
+    <li>RawFragment - {{.Url.RawFragment}}</li>
+</ul>
+{{end}}
+<p>This is the form data</p>
+<ul>
+    {{range $key, $value := .QParams}}
     <li>
         <strong>{{$key}}</strong>
         <ul>
